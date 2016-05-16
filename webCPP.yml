@@ -1,0 +1,23 @@
+---
+resources:
+- name: webCPP-repo
+  type: git
+  source:
+    uri: https://github.com/walrusfruitcake/webCPP
+    branch: master
+
+jobs:
+- name: webCPP-build
+  plan:
+  - task: build
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source: {repository: ubuntu}
+      inputs:
+      - name: webCPP-repo
+        path: webCPP
+      run:
+        dir: webCPP
+        path: make
